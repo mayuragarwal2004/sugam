@@ -1,0 +1,483 @@
+html {
+  line-height: 1.15;
+}
+
+body {
+  margin: 0;
+}
+
+
+/* * {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+} */
+
+/* p,
+li,
+ul,
+pre,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+} */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+button:-moz-focus,
+[type="button"]:-moz-focus,
+[type="reset"]:-moz-focus,
+[type="submit"]:-moz-focus {
+  outline: 1px dotted ButtonText;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+input {
+  padding: 2px 4px;
+}
+
+img {
+  display: block;
+}
+
+html {
+  scroll-behavior: smooth
+}
+
+/* @charset "UTF-8"; */
+
+*,
+*::before,
+*::after,
+body,
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-style: normal;
+}
+
+[tabindex],
+:focus,
+a,
+button,
+input,
+textarea,
+select {
+  outline: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  /* border: none; */
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.me {
+  background: url("https://assets.codepen.io/1735448/internal/avatars/users/default.png?format=auto&height=80&version=1579979386&width=80") no-repeat center/contain;
+  width: 40px;
+  height: 40px;
+  right: 16px;
+  bottom: 16px;
+  display: block;
+  /* position: fixed; */
+  z-index: 9999;
+  border-radius: 50%;
+  -webkit-transform: translateY(-4px);
+  -ms-transform: translateY(-4px);
+  transform: translateY(-4px);
+  -webkit-animation: me 2s linear infinite alternate both;
+  animation: me 2s linear infinite alternate both;
+}
+
+@-webkit-keyframes me {
+  to {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+}
+
+@keyframes me {
+  to {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+}
+
+.me::before {
+  width: 150px;
+  top: 10px;
+  right: 0;
+  font: 400 16px Consolas;
+  text-align: center;
+  opacity: 0;
+  z-index: -1;
+  visibility: hidden;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  display: block;
+  /* position: absolute; */
+  content: "My Pens";
+}
+
+.me:hover::before {
+  right: 20px;
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Set the size of the div element that contains the map */
+.gmap-form {
+  height: 200px;
+  /* The height is 400 pixels */
+  width: 80%;
+  /* The width is the width of the web page */
+  transition: all 1s linear;
+  /* display: block; */
+  border-radius: 15px;
+}
+
+.box {
+  background: goldenrod;
+  width: 300px;
+  height: 300px;
+  margin: 30px auto;
+  transition: all 1s linear;
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.visuallyhidden {
+  opacity: 0;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Saira+Semi+Condensed&display=swap");
+
+/* * {
+  font-family: "Saira Semi Condensed", sans-serif;
+  transition: all 0.05s ease;
+} */
+
+body {
+  background: #dfdfdf;
+}
+
+.container {
+  width: 100%;
+  height: 80%;
+  padding: 0 16px;
+  /* margin-top: 150px; */
+  margin-bottom: 100px;
+  /* padding-bottom: 100px; */
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  /* overflow: auto; */
+}
+
+form {
+  width: auto;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+form div.field,
+form label,
+form input,
+form textarea,
+form span {
+  width: 100%;
+}
+
+label,
+input,
+textarea {
+  padding: 8px;
+}
+
+label,
+[placeholder] {
+  color: #555;
+}
+
+label i {
+  margin: 0 10px 0 0;
+}
+
+.field:focus-within label {
+  color: #000;
+  letter-spacing: 2px;
+}
+
+.field:focus-within label {
+  color: #000;
+  letter-spacing: normal;
+}
+
+input,
+textarea,
+select,
+#majorcomponentspan {
+  background: rgb(255, 255, 255);
+  border-width: 1px;
+  border-style: solid;
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+#majorcomponentspan:hover {
+  background: white;
+  box-shadow: none;
+  box-shadow: 0 8px 6px -6px #555;
+  /* border: rgba(21, 255, 0, 0.755) solid 2px; */
+}
+
+textarea {
+  resize: none;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0;
+}
+
+#submitbtn {
+  background: #2f4ad0;
+  margin: 16px 0 50px 0;
+  padding: 8px 16px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 8px 6px -6px #555;
+}
+
+.home-form button:hover {
+  letter-spacing: 2px;
+  box-shadow: none;
+}
+
+.social-media {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+/* :not(.social-media) {
+  font-size: 14px;
+} */
+.social-media span {
+  font-size: 16px;
+}
+
+.social-media span .fas {
+  margin: 0 0 0 10px;
+}
+
+.social-media a {
+  color: #000;
+  font-size: 20px;
+}
+
+@media (max-width: 425px) {
+  form {
+    width: 100%;
+  }
+}
+
+#locbutton, #otpbutton, #signoutbutton {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+#signoutbutton{
+  background-color: #d33c3c;
+}
+
+select {
+  padding: 8px;
+  width: 100%;
+}
+
+option[value=""] {
+  color: red;
+}
+
+label {
+  padding: 0;
+  color: #000;
+}
+
+.field {
+  /* padding: 10px; */
+  margin: 10px 10px 25px 10px;
+  /* position:static; */
+}
+
+/* #namediv{
+  position: relative;
+} */
+h {
+  color: red;
+}
+
+#dustbinfilleddiv {
+  display: none;
+}
+
+.defaultselect {
+  color: red;
+}
+
+input[type="checkbox"] {
+  width: auto;
+}
+
+#majorcomponentspan {
+  display: inline-block;
+  padding: 5px;
+}
+
+.fieldmajor {
+  margin: 10px;
+}
+
+/* .fieldmajor:focus-within label[id="majorcid"]{
+  margin: 10px;
+  letter-spacing: 2px;
+} */
+.navigation-register {
+  margin-bottom: 0;
+  margin-top: 0;
+  box-shadow: none;
+  font-family: IBM Plex Sans Condensed;
+}
+
+a[href^="https://www.google.com/maps"]:hover {
+  text-decoration: underline;
+}
+
+#garbagecollecteddiv {
+  display: none;
+}
+
+.majorcl {
+  cursor: pointer;
+  padding: 0;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.home-form {
+  height: auto;
+  width: auto;
+}
+
+.required-star {
+  color: red;
+}

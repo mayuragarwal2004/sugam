@@ -5,7 +5,7 @@
   --dl-size-size-xlarge: 192px;
   --dl-size-size-xsmall: 16px;
   --dl-space-space-unit: 16px;
-  --dl-color-scheme-pink: #fb275aff;
+  --dl-color-scheme-pink: rgba(0, 0, 0, 0.637);
   --dl-size-size-xxlarge: 288px;
   --dl-color-scheme-black: #0f1722ff;
   --dl-color-scheme-white: #FFFFFF;
@@ -76,7 +76,6 @@
   align-items: center;
   /*padding-top: var(--dl-space-space-sixunits);*/
   flex-direction: column;
-  padding-bottom: var(--dl-space-space-sixunits);
 }
 .max-content-container {
   width: 100%;

@@ -233,9 +233,6 @@ a {
   transition: all 0.05s ease;
 } */
 
-body {
-  background: #dfdfdf;
-}
 
 .container {
   width: 100%;
@@ -476,6 +473,11 @@ input[type="checkbox"] {
 .home-form {
   height: auto;
   width: auto;
+  margin: 5%;
+  padding: 5%;
+  border: 5px solid #18b35b59;
+  border-radius: 20px;
+  background-color: #18b35b33;
 }
 
 .required-star {

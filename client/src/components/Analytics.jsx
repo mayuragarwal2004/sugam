@@ -85,11 +85,12 @@ function Analytics() {
         </div>
       </div>
       {queryData && <ComplainCards data={queryData}/>}
-      <div>
-        <div className="fieldmajor" tabIndex="5">
-          <label htmlFor="majorcomponent" id="majorcid">
+       <div className="checkb-con">
+       <label htmlFor="majorcomponent" id="majorcid">
             Select the major component of garbage to be shown
           </label>
+        <div className="fieldmajor" tabIndex="5">
+          
           <br />
           <span id="majorcomponentspan">
             <input

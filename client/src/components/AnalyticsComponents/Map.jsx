@@ -15,6 +15,7 @@ import AuthContext from "../context/auth/AuthContext";
 import { useAuth } from "../context/auth/AuthState";
 import AnalyticsConfirmation from "./AnalyticsConfirmation";
 import ImageOverlay from "./ImageOverlay";
+import MapWidgets from "./MapWidgets";
 // import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -66,6 +67,7 @@ export default function Map(props) {
 
   return (
     <>
+      <MapWidgets />
       {open.state && (
         <AnalyticsConfirmation
           open={open}

@@ -1,28 +1,61 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Map from "./AnalyticsComponents/Map";
 import "./css/analytics.css";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  getFirestore,
-} from "firebase/firestore";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-} from "@react-google-maps/api";
+import { collection, query, getDocs, getFirestore } from "firebase/firestore";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { app } from "./base";
-import { async } from "@firebase/util";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import ComplainCards from "./AnalyticsComponents/ComplainCards";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import dayjs from "dayjs";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+
+// sort by ward
+// sort by address
+// sort by time
+// sort by status
+// sort by type
+// sort by priority
+// sort by severity
 
 function Analytics() {
+  const [libraries] = useState(["places"]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries,
   });
   const [activeMarker, setActiveMarker] = useState(null);
+  const fullscreenHandle = useFullScreenHandle();
+  const [zoom, setzoom] = useState(15);
+  const [map, setMap] = useState(null);
+  const [value, setValue] = React.useState([
+    dayjs("2022-04-17"),
+    dayjs("2022-04-21"),
+  ]);
+  const [sortByTimeOption, setsortByTimeOption] = useState(1);
+  const [complaintStatus, setcomplaintStatus] = useState({
+    completed: true,
+    notCompleted: true,
+  });
+  const [sortByAddessOption, setsortByAddessOption] = useState(1);
+
+  const handleComplaintStatus = (e) => {
+    setcomplaintStatus({
+      ...complaintStatus,
+      [e.target.name]: e.target.checked,
+    });
+  };
 
   console.log(activeMarker);
 
@@ -37,27 +70,41 @@ function Analytics() {
   const [queryData, setqueryData] = useState([]);
   async function getData() {
     const db = getFirestore(app);
-    const q = query(collection(db, "Complaints"), where("state", "==", "Maharashtra"));
+    const q = query(collection(db, "Complaints"));
 
     const querySnapshot = await getDocs(q);
     setqueryData([]);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      setqueryData((prev) => [...prev, { ...doc.data(), docID:doc.id }]);
+      setqueryData((prev) => [...prev, { ...doc.data(), docID: doc.id }]);
       // console.log(doc.id, " => ", doc.data());
     });
   }
+
+  useEffect(() => {
+    if (fullscreenHandle.active) {
+      document.documentElement.style.setProperty("--maps-body-height", "100vh");
+    } else {
+      document.documentElement.style.setProperty(
+        "--maps-body-height",
+        "var(--default-maps-body-height)"
+      );
+    }
+  }, [fullscreenHandle.active]);
+
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <>
-      <div className="home-agenda section-container">
-        <div className="home-max-width2 max-content-container">
-          <div className="home-heading-container1">
-            <h1 className="home-text11 heading2">View Analytics</h1>
-          </div>
-          <div className="map-container" >
+      <FullScreen handle={fullscreenHandle}>
+        <div
+          className={`maps-main-body ${
+            fullscreenHandle.active ? "fullscreen-map" : ""
+          }`}
+        >
+          <div className="maps-body-gmap">
             {!isLoaded ? (
               <div>Loading...</div>
             ) : (
@@ -66,136 +113,164 @@ function Analytics() {
                 center={center}
                 mapContainerClassName="gmap"
                 onClick={() => setActiveMarker(null)}
-              ><>
-                {queryData && (
-                  <Map
-                    data={queryData}
-                    activeMarker={activeMarker}
-                    setActiveMarker={setActiveMarker}
-                    handleActiveMarker={handleActiveMarker}
-                  />
-                )}
+                fullscreenControl={true}
+                options={{
+                  zoomControl: false,
+                  mapTypeControl: false,
+                  scaleControl: false,
+                  streetViewControl: false,
+                  rotateControl: false,
+                  fullscreenControl: false,
+                  gestureHandling: fullscreenHandle.active ? "greedy" : "auto",
+                }}
+              >
+                <>
+                  {queryData && (
+                    <Map
+                      data={queryData}
+                      activeMarker={activeMarker}
+                      setActiveMarker={setActiveMarker}
+                      handleActiveMarker={handleActiveMarker}
+                    />
+                  )}
                 </>
               </GoogleMap>
             )}
-            <span id="info-box">?</span>
-            <button id="remove">Remove Ward Outlines</button>
-            <button id="add">Add Ward Outlines</button>
+          </div>
+          <div className="main-map-overlay">
+            <div className="left-panel-main-parent">
+              <div className="left-panel-row">
+                <div className="left-panel-row-title">Complaint Status</div>
+                <div className="left-panel-row-body">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          name="completed"
+                          checked={complaintStatus.completed}
+                          onChange={handleComplaintStatus}
+                          value={complaintStatus.completed}
+                        />
+                      }
+                      label="Completed"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          name="notCompleted"
+                          checked={complaintStatus.notCompleted}
+                          onChange={handleComplaintStatus}
+                          value={complaintStatus.notCompleted}
+                        />
+                      }
+                      label="Not Completed"
+                    />
+                  </FormGroup>
+                </div>
+              </div>
+              <div className="left-panel-row">
+                <div
+                  className="left-panel-row-title"
+                  style={{ marginTop: "20px" }}
+                >
+                  Sort by Time
+                </div>
+                <div
+                  className="left-panel-row-body"
+                  style={{ marginTop: "10px" }}
+                >
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Sort by time
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={sortByTimeOption}
+                      label="Sort by time"
+                      onChange={(e) => setsortByTimeOption(e.target.value)}
+                    >
+                      <MenuItem value={1}>Last 24 hours</MenuItem>
+                      <MenuItem value={2}>Last 2 day</MenuItem>
+                      <MenuItem value={3}>Last 4 days</MenuItem>
+                      <MenuItem value={4}>Last 1 week</MenuItem>
+                      <MenuItem value={5}>Custom Time Input</MenuItem>
+                    </Select>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      {sortByTimeOption === 5 && (
+                        <DemoContainer
+                          components={["DateRangePicker", "DateRangePicker"]}
+                        >
+                          <DemoItem
+                            label="Choose Date Range"
+                            component="DateRangePicker"
+                          >
+                            <DateRangePicker
+                              value={value}
+                              onChange={(newValue) => setValue(newValue)}
+                            />
+                          </DemoItem>
+                        </DemoContainer>
+                      )}
+                    </LocalizationProvider>
+                  </FormControl>
+                </div>
+              </div>
+              <div className="left-panel-row">
+                <div
+                  className="left-panel-row-title"
+                  style={{ marginTop: "20px" }}
+                >
+                  Sort by Location
+                </div>
+                <div
+                  className="left-panel-row-body"
+                  style={{ marginTop: "10px" }}
+                >
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      View data by
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={sortByAddessOption}
+                      label="View data by"
+                      onChange={(e) => setsortByAddessOption(e.target.value)}
+                    >
+                      <MenuItem value={1}>Ward</MenuItem>
+                      <MenuItem value={2}>City</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl fullWidth style={{marginTop:"10px"}}>
+                    <InputLabel id="demo-simple-select-label">
+                      Choose Ward
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={sortByAddessOption}
+                      label="Choose Ward"
+                      onChange={(e) => setsortByAddessOption(e.target.value)}
+                    >
+                      <MenuItem value={1}>Ward</MenuItem>
+                      <MenuItem value={2}>City</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+            </div>
+            <div className="right-panel-main-parent">right hello</div>
           </div>
         </div>
-      </div>
-      {queryData && <ComplainCards data={queryData}/>}
+      </FullScreen>
+
       <div>
-        <div className="fieldmajor" tabIndex="5">
-          <label htmlFor="majorcomponent" id="majorcid">
-            Select the major component of garbage to be shown
-          </label>
-          <br />
-          <span id="majorcomponentspan">
-            <input
-              type="text"
-              name="majorcompnum"
-              id="majorcompnum"
-              style={{ display: "none" }}
-              value="0"
-              required
-              readOnly
-            />
-            <input
-              type="text"
-              name="majorcomponents"
-              id="majorcomponents"
-              style={{ display: "none" }}
-              required
-              readOnly
-            />
-            <input
-              type="checkbox"
-              className="majorcompoption"
-              id="drywaste"
-              name="Dry Waste"
-              value="Dry Waste"
-            />
-            <label className="majorcl" htmlFor="drywaste">
-              Dry Waste <span id="p"></span>
-            </label>
-            <br />
-
-            <input
-              type="checkbox"
-              className="majorcompoption"
-              id="plantwaste"
-              value="Plant Waste"
-            />
-            <label className="majorcl" htmlFor="plantwaste">
-              Plant Waste <span id="p"></span>
-            </label>
-            <br />
-
-            <input
-              type="checkbox"
-              className="majorcompoption"
-              id="constructionwaste"
-              value="Construction waste"
-            />
-            <label className="majorcl" htmlFor="constructionwaste">
-              Construction waste <span id="constructionwastep"></span>
-            </label>
-            <br />
-
-            <input
-              type="checkbox"
-              className="majorcompoption"
-              id="wetwaste"
-              value="Wet Waste"
-            />
-            <label className="majorcl" htmlFor="wetwaste">
-              Wet Waste <span id="wetwastep"></span>
-            </label>
-            <br />
-
-            <input
-              type="checkbox"
-              className="majorcompoption"
-              id="clothes"
-              value="Clothes"
-            />
-            <label className="majorcl" htmlFor="clothes">
-              Clothes <span id="clothesp"></span>
-            </label>
-            <br />
-
-            <input
-              type="checkbox"
-              className="majorcompoption"
-              id="sanitarywaste"
-              value="Sanitary Waste"
-            />
-            <label className="majorcl" htmlFor="sanitarywaste">
-              Sanitary Waste <span id="sanitarywastep"></span>
-            </label>
-            <br />
-
-            <input
-              type="checkbox"
-              className="majorcompoption"
-              id="medicalwaste"
-              value="Medical Waste"
-            />
-            <label className="majorcl" htmlFor="medicalwaste">
-              Medical Waste <span id="medicalwastep"></span>
-            </label>
-            <br />
-          </span>
-        </div>
-        <button
-          onClick={() => console.log("filter()")}
-          value="submit"
-          id="submitbtn"
-        >
-          Submit
-        </button>
+        <button onClick={fullscreenHandle.enter}>Enter fullscreen</button>
       </div>
+      {queryData && <ComplainCards data={queryData} />}
     </>
   );
 }

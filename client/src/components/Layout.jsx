@@ -160,9 +160,7 @@ const Layout = () => {
         </div>
       </header>
 
-      <main className="home-main">
-        <Outlet context={[menu, setmenu]} />
-      </main>
+      <Outlet context={[menu, setmenu]} />
 
       <footer className="footer-footer section-container footer-root-class-name">
         <div className="footer-max-width max-content-container">

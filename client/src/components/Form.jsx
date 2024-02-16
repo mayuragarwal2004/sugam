@@ -157,8 +157,7 @@ function Form() {
             val,
             "|",
             !Boolean(val),
-            "|",
-            val === []
+            "|"
           );
           setsubmit((prev) => ({
             ...prev,

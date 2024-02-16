@@ -26,7 +26,6 @@ import Checkbox from "@mui/material/Checkbox";
 // sort by time
 // sort by status
 // sort by type
-// sort by priority
 // sort by severity
 
 function Analytics() {

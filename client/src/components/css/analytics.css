@@ -1,7 +1,3 @@
-header {
-  display: none !important;
-}
-
 .maps-main-body,
 .fullscreen {
   height: var(--maps-body-height);

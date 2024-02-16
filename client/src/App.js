@@ -12,11 +12,15 @@ import RequireAuth from "./components/RequireAuth";
 import Dashboard from "./components/Dashboard";
 import LoginSignUp from "./components/LoginSignUp";
 import Newtry from "./components/Newtry";
+import Complaints from "./components/Complaints";
+import Profile from "./components/Profile";
+import Login from "./components/Login";
+import AboutUs from "./components/AboutUs";
 
 function App() {
   return (
     <>
-    {/* <React.StrictMode> */}
+      {/* <React.StrictMode> */}
       <BrowserRouter>
         <div className="home-container">
           <Routes>
@@ -31,6 +35,10 @@ function App() {
               <Route path="auth" element={<LoginSignUp />} />
               <Route path="newmap" element={<NewMap />} />
               <Route path="newtry" element={<Newtry />} />
+              <Route path="complaints" element={<Complaints />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="login" element={<Login />} />
+              <Route path="aboutUs" element={<AboutUs />} />
               <Route path="*" element={<NoPage />} />
             </Route>
           </Routes>

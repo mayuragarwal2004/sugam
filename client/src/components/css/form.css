@@ -233,9 +233,6 @@ a {
   transition: all 0.05s ease;
 } */
 
-body {
-  background: #dfdfdf;
-}
 
 .container {
   width: 100%;
@@ -292,7 +289,9 @@ label i {
   color: #000;
   letter-spacing: normal;
 }
-
+.majorcomponent{
+  padding: 10px;
+}
 input,
 textarea,
 select,
@@ -407,7 +406,7 @@ option[value=""] {
 }
 
 label {
-  padding: 0;
+
   color: #000;
 }
 
@@ -438,11 +437,16 @@ input[type="checkbox"] {
 
 #majorcomponentspan {
   display: inline-block;
-  padding: 5px;
+  padding: 20px;
+  align-items: center;
+  margin-left: 20%;
 }
-
+.checkb-con{
+  width: 100%;
+}
 .fieldmajor {
-  margin: 10px;
+  margin:10%;
+  display: flex;
 }
 
 /* .fieldmajor:focus-within label[id="majorcid"]{
@@ -476,6 +480,11 @@ input[type="checkbox"] {
 .home-form {
   height: auto;
   width: auto;
+  margin: 5%;
+  padding: 5%;
+  border: 5px solid #18b35b59;
+  border-radius: 20px;
+  background-color: #18b35b33;
 }
 
 .required-star {

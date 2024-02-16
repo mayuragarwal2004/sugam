@@ -51,7 +51,7 @@ const Home = () => {
           >
             <div className="numbertext">1 / 3</div>
             <img
-              src="playground_assets/1.jpg"
+              src="playground_assets/2.jpg"
               style={{ width: "100%" }}
               alt="img"
             />
@@ -105,7 +105,7 @@ const Home = () => {
           ></span>
         </div>
       </div>
-      <div
+      {/* <div
         className="home-agenda section-container"
         style={{
           backgroundColor: "rgba(144, 149, 167, 0.08)",
@@ -129,7 +129,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="home-workshops">
         <div className="home-content-container1">
           <div className="home-container1">
